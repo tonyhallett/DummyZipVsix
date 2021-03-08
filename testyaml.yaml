@@ -1,0 +1,1 @@
+name: test yamlon: [push]jobs:  echo:    runs-on: windows-2019    steps:      - run: echo "::debug::push started job !"

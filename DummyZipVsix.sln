@@ -5,6 +5,13 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DummyZipVsix", "DummyZipVsix\DummyZipVsix.csproj", "{35400935-4502-460F-A210-DB79EC8D851E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{D048E72F-498E-433E-94D4-14FFFD78A7E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{3A083A80-37A4-4D15-9578-5CC2613E6BC1}"
+	ProjectSection(SolutionItems) = preProject
+		testyaml.yaml = testyaml.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +25,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3A083A80-37A4-4D15-9578-5CC2613E6BC1} = {D048E72F-498E-433E-94D4-14FFFD78A7E2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8C7E44B-864D-45EB-837B-02235A0AB219}
