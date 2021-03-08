@@ -1,1 +1,1 @@
-name: test yamlon: [push]jobs:  echo:    runs-on: windows-2019    steps:      - run: echo "::debug::push started job !"
+name: test yamlon: [push]jobs:  build-and-prerelease-vsix:    runs-on: windows-2019    steps:      - run: nuget ?      # - uses: actions/checkout@v2      # - uses: microsoft/setup-msbuild@v1.0.0      # - uses: darenm/Setup-VSTest@v1      
