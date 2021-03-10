@@ -1,1 +1,1 @@
-name: test version actionon: [workflow_dispatch]jobs:  test-version-action-job:    runs-on: windows-2019    steps:      - name: Update release asset        id: upload-release-asset        uses: PaulHatch/semantic-version      
+name: test version actionon: [workflow_dispatch]jobs:  test-version-action-job:    runs-on: windows-2019    steps:      - name: Test version action         id: test-version-action        uses: paulhatch/semantic-version@v4      
