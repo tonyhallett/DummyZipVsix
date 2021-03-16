@@ -1,1 +1,1 @@
-name: test pull requeston: [pull_request]jobs:  get-pull-request-issue:    runs-on: windows-2019    steps:      - name: get pull request issue        uses : tonyhallett/ReleaseManager/get_pull_request_issue@main 
+name: test pull requeston: [pull_request]jobs:  get-pull-request-issue:    runs-on: windows-2019    steps:      - name: get pull request issue        uses : tonyhallett/ReleaseManager/get_pull_request_issue@main
