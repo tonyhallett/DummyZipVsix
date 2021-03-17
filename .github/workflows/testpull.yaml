@@ -1,1 +1,1 @@
-name: test yamlon: [pull_request]jobs:  build-and-prerelease-vsix:    runs-on: windows-2019    steps:      - name: Remove release assets        uses : tonyhallett/ReleaseManager/get_pull_request_issue@main
+name: test yamlon: [pull_request]jobs:  build-and-prerelease-vsix:    runs-on: windows-2019    steps:      - name: Remove release assets        uses : tonyhallett/ReleaseManager/get_pull_request_issue@main        env:            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
