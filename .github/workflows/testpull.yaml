@@ -14,14 +14,12 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: echo mergeable
-        env:
-            MERGEABLE: ${{ github.event.pull_request.mergeable }}
-        run: echo 'mergeable $MERGEABLE'
+        run: echo ${{ github.event.pull_request.mergeable }}
       - name: echo mergeable state
         env:
-            MERGEABLE_STATE: ${{ github.event.pull_request.mergeable_state }}
-        run: echo 'mergeable state $MERGEABLE_STATE'
+            MERGEABLE_STATE: 
+        run: echo mergeable state ${{ github.event.pull_request.mergeable_state }}
       - name: echo merge commit sha
-        env:
-            MERGEABLE_COMMIT_SHA: ${{ github.event.pull_request.merge_commit_sha }}
-        run: echo 'merge commit sha $MERGEABLE_COMMIT_SHA'
+        run: echo merge commit sha ${{ github.event.pull_request.merge_commit_sha }}
+      - name: echo repo
+        run: This workflow on ${{ github.repository }} 
