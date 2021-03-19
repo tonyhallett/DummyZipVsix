@@ -13,3 +13,9 @@ jobs:
             useCommitMessages: 'false'
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: echo mergeable
+        run: echo ${{github.event.pull_request.mergeable}}
+      - name: echo mergeable state
+        run: echo ${{github.event.pull_request.mergeable_state}}
+      - name: echo merge commit sha
+        run: echo ${{github.event.pull_request.merge_commit_sha}}
