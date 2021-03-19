@@ -13,13 +13,12 @@ jobs:
             useCommitMessages: 'false'
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: echo repo
+        run: This workflow on ${{ github.repository }} 
       - name: echo mergeable
-        run: echo ${{ github.event.pull_request.mergeable }}
+        run: echo mergeable ${{ github.event.pull_request.mergeable }}
       - name: echo mergeable state
-        env:
-            MERGEABLE_STATE: 
         run: echo mergeable state ${{ github.event.pull_request.mergeable_state }}
       - name: echo merge commit sha
         run: echo merge commit sha ${{ github.event.pull_request.merge_commit_sha }}
-      - name: echo repo
-        run: This workflow on ${{ github.repository }} 
+      
