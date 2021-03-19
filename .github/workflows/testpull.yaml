@@ -15,4 +15,6 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Wait for mergeable
         uses: tonyhallett/ReleaseManager/wait_for_mergeable@main
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
