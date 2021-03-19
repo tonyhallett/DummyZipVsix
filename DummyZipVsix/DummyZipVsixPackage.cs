@@ -30,7 +30,7 @@ namespace DummyZipVsix
         /// <summary>
         /// DummyZipVsixPackage GUID string.
         /// </summary>
-        public const string PackageGuidString = "5c981ac7-8056-4628-8a69-53b6d689ae09";
+        public const string PackageGuidString = "5c981ac7-8056-4628-8a69-53b6d689ae09";//
 
         #region Package Members
 
