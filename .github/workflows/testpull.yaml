@@ -12,13 +12,13 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: echo when mergeable
-        if: ${{ steps.wait_for_mergeable.mergeable}}
+        if: ${{ steps.wait_for_mergeable.outputs.mergeable}}
         run: echo mergeable
       - name: echo when not mergeable
-        if: ${{ !steps.wait_for_mergeable.mergeable}}
+        if: ${{ !steps.wait_for_mergeable.outputs.mergeable}}
         run: echo 'not mergeable'
       - name: Pull request issues
-        if: ${{ !github.event.pull_request.draft && steps.wait_for_mergeable.mergeable}}
+        if: ${{ !github.event.pull_request.draft && steps.wait_for_mergeable.outputs.mergeable}}
         uses: tonyhallett/ReleaseManager/get_pull_request_issue@main
         with:
             useCommitMessages: 'false'
