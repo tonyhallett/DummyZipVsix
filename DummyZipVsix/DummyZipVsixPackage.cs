@@ -26,7 +26,7 @@ namespace DummyZipVsix
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(DummyZipVsixPackage.PackageGuidString)]
     public sealed class DummyZipVsixPackage : AsyncPackage
-    {//
+    {//yyy
         /// <summary>
         /// DummyZipVsixPackage GUID string.
         /// </summary>
