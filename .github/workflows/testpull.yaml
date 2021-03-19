@@ -6,15 +6,24 @@ jobs:
   test-pull-request-issues:
     runs-on: windows-2019
     steps:
+      - name: Wait for mergeable
+        id: wait_for_mergeable
+        uses: tonyhallett/ReleaseManager/wait_for_mergeable@main
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: echo when mergeable
+        if: ${{ steps.wait_for_mergeable.mergeable}}
+        run: echo mergeable
+      - name: echo when not mergeable
+        if: ${{ !steps.wait_for_mergeable.mergeable}}
+        run: echo 'not mergeable'
       - name: Pull request issues
-        if: ${{ !github.event.pull_request.draft }}
+        if: ${{ !github.event.pull_request.draft && steps.wait_for_mergeable.mergeable}}
         uses: tonyhallett/ReleaseManager/get_pull_request_issue@main
         with:
             useCommitMessages: 'false'
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Wait for mergeable
-        uses: tonyhallett/ReleaseManager/wait_for_mergeable@main
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      
       
