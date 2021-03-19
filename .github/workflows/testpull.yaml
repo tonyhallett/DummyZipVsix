@@ -6,6 +6,12 @@ jobs:
   test-pull-request-issues:
     runs-on: windows-2019
     steps:
+      - run: mkdir -p path/to/artifact
+      - run: echo hello > path/to/artifact/world.txt
+      - uses: actions/upload-artifact@v2
+        with:
+            name: my-artifact
+            path: path/to/artifact/world.txt
       - name: Wait for mergeable
         id: wait_for_mergeable
         uses: tonyhallett/ReleaseManager/wait_for_mergeable@main
