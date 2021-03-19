@@ -14,8 +14,14 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: echo mergeable
-        run: echo 'mergeable $github.event.pull_request.mergeable'
+        env:
+            MERGEABLE: ${{ github.event.pull_request.mergeable }}
+        run: echo 'mergeable $MERGEABLE'
       - name: echo mergeable state
-        run: echo 'mergeable state $github.event.pull_request.mergeable_state'
+        env:
+            MERGEABLE_STATE: ${{ github.event.pull_request.mergeable_state }}
+        run: echo 'mergeable state $MERGEABLE_STATE'
       - name: echo merge commit sha
-        run: echo 'merge commit sha $github.event.pull_request.merge_commit_sha'
+        env:
+            MERGEABLE_COMMIT_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+        run: echo 'merge commit sha $MERGEABLE_COMMIT_SHA'
