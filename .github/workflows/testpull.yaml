@@ -7,6 +7,7 @@ jobs:
     runs-on: windows-2019
     steps:
       - name: Pull request issues
+        if: ${{ !github.event.pull_request.draft }}
         uses: tonyhallett/ReleaseManager/get_pull_request_issue@main
         with:
             useCommitMessages: 'false'
