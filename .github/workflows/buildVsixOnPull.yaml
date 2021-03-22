@@ -9,13 +9,14 @@ jobs:
     runs-on: windows-2019
     steps:
       - name: wait for mergeable
+        id: wait-for-mergeable
         uses: tonyhallett/ReleaseManager/wait_for_mergeable@main
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: checkout
         uses: actions/checkout@v2
         with:
-            ref: ${{ github.event.pull_request.merge_commit_sha}}
+            ref: ${{ steps.wait-for-mergeable.outputs.mergeCommitSha}}
                 
       - name: set up msbuild
         uses: microsoft/setup-msbuild@v1.0.2
@@ -29,5 +30,5 @@ jobs:
       - name: upload vsix
         uses: actions/upload-artifact@v2
         with:
-            name: DummyZip.vsix.zip
+            name: DummyZip ( zipped vsix)
             path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix
