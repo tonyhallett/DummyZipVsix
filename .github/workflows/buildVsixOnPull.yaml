@@ -15,8 +15,13 @@ jobs:
         run: echo "ref - $GITHUB_REF sha $GITHUB_SHA"
       - name: wait for mergeable
         uses: tonyhallett/ReleaseManager/wait_for_mergeable@main
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: checkout
         uses: actions/checkout@v2
+        with:
+            ref: ${{ github.event.pull_request.merge_commit_sha}}
+                
       - name: set up msbuild
         uses: microsoft/setup-msbuild@v1.0.2
       - name: set up VSTest
