@@ -8,11 +8,6 @@ jobs:
     if: ${{ !github.event.pull_request.draft }}
     runs-on: windows-2019
     steps:
-      - name: echo checkout values
-        env:
-          GITHUB_REF: ${{ github.ref }}
-          GITHUB_SHA: ${{ github.sha }}
-        run: echo "ref - $GITHUB_REF sha $GITHUB_SHA"
       - name: wait for mergeable
         uses: tonyhallett/ReleaseManager/wait_for_mergeable@main
         env:
