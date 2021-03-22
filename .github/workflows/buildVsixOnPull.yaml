@@ -1,0 +1,19 @@
+name: Build vsix and upload on pull request
+on: 
+    pull_request_target:
+        types: [opened, synchronize, edited]
+jobs:
+  test-pull-request-issues:
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - uses: microsoft/setup-msbuild@v1.0.2
+      - uses: darenm/Setup-VSTest@v1
+      - run: nuget restore DummyZipVsix.sln
+      - run: |
+          msbuild DummyZipVsix.sln /p:Configuration=Release /p:DeployExtension=False /verbosity:minimal 
+      - uses: actions/upload-artifact@v2
+        with:
+            name: DummyZip.vsix
+            path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix

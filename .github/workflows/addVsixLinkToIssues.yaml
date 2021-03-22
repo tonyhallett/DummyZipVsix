@@ -1,0 +1,2 @@
+name: Add vsix link to issueson:  workflow_run:    workflows: [test pull request issues]    types: [completed]jobs:  test-artifacts:    runs-on: windows-2019    steps:      - uses: tonyhallett/ReleaseManager/workflow_artifacts_pull_request_comment@main        env:            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        with:
+            prefix: Please try             suffix: Does this resolve your issue ?            format: name            addTo: issues            
