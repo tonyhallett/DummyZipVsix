@@ -3,17 +3,30 @@ on:
     pull_request_target:
         types: [opened, synchronize, edited]
 jobs:
-  test-pull-request-issues:
+  build vsix and upload:
     if: ${{ !github.event.pull_request.draft }}
     runs-on: windows-2019
     steps:
+      - name: echo checkout values
+        env:
+          GITHUB_REF: ${{ github.ref }}
+          GITHUB_SHA: ${{ github.sha }}
+      - run: echo "ref - $GITHUB_REF sha $GITHUB_SHA"
+      - name: wait for mergeable
+      - uses: tonyhallett/ReleaseManager/wait_for_mergeable@main
+      - name: checkout
       - uses: actions/checkout@v2
+      - name: set up msbuild
       - uses: microsoft/setup-msbuild@v1.0.2
+      - name: set up VSTest
       - uses: darenm/Setup-VSTest@v1
+      - name: nuget restore
       - run: nuget restore DummyZipVsix.sln
+      - name: build vsix
       - run: |
           msbuild DummyZipVsix.sln /p:Configuration=Release /p:DeployExtension=False /verbosity:minimal 
+      - name: upload vsix
       - uses: actions/upload-artifact@v2
         with:
-            name: DummyZip.vsix
+            name: DummyZip.vsix.zip
             path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix
