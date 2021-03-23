@@ -1,6 +1,6 @@
 name: Build vsix and upload on pull request
 on: 
-    pull_request:
+    pull_request_target:
         types: [opened, synchronize, edited]
 jobs:
   build-vsix-and-upload:
@@ -15,15 +15,15 @@ jobs:
           GITHUB_SHA: ${{ github.sha }}
           GITHUB_MERGE_SHA: ${{github.event.pull_request.merge_commit_sha}}
           GITHUB_PR_HEAD_SHA: ${{github.event.pull_request.head.sha}}
-      #- name: wait for mergeable
-      #  id: wait-for-mergeable
-      #  uses: tonyhallett/ReleaseManager/wait_for_mergeable@main
-      #  env:
-      #      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: wait for mergeable
+        id: wait-for-mergeable
+        uses: tonyhallett/ReleaseManager/wait_for_mergeable@main
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: checkout
         uses: actions/checkout@v2
-      #  with:
-      #      ref: ${{ steps.wait-for-mergeable.outputs.mergeCommitSha}}
+        with:
+            ref: ${{ steps.wait-for-mergeable.outputs.mergeCommitSha}}
                 
       - name: set up msbuild
         uses: microsoft/setup-msbuild@v1.0.2
