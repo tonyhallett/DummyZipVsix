@@ -10,9 +10,9 @@ jobs:
     steps:
       - name: log client payload
         env:
-            PAYLOAD: ${{ toJson(github.event) }}
+            WORKFLOWRUNPAYLOAD: ${{ toJson(github.event.client_payload.workflowRunPayload) }}
         run:
-            echo "Client payload $PAYLOAD"
+            echo "Workflow run payload $WORKFLOWRUNPAYLOAD"
       
       
 
