@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\addVsixLinkToIssues.yaml = .github\workflows\addVsixLinkToIssues.yaml
 		.github\workflows\buildVsixOnPull.yaml = .github\workflows\buildVsixOnPull.yaml
+		.github\workflows\logmergesha.yaml = .github\workflows\logmergesha.yaml
 		.github\workflows\manual_version_action.yaml = .github\workflows\manual_version_action.yaml
 		.github\workflows\testyaml.yaml = .github\workflows\testyaml.yaml
 	EndProjectSection

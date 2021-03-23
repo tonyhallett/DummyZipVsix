@@ -1,0 +1,16 @@
+name: log merge sha
+on: 
+    pull_request:
+        types: [ synchronize, edited]
+jobs:
+  log-merge-sha:
+    name: log merge sha
+    runs-on: windows-2019
+    steps:
+    - name: echo checkout values
+    env:
+           GITHUB_REF: ${{ github.ref }}
+           GITHUB_SHA: ${{ github.sha }}
+           GITHUB_MERGE_SHA: ${{github.pull_request.merge_commit_sha}}
+    run: echo "ref - $GITHUB_REF sha $GITHUB_SHA"
+      
