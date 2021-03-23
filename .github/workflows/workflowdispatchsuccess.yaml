@@ -1,0 +1,18 @@
+name: Add vsix link as comment to issues
+on:
+  repository_dispatch:
+    types: [Build vsix and upload on pull request - success]
+
+jobs:
+  log-client-payload:
+    name: log client payload
+    runs-on: windows-2019
+    steps:
+      - name: log client payload
+        env:
+            Client_PAYLOAD: ${{ github.event.repository_dispatch.client_payload.workflowRunPayload }}
+        run:
+            echo "Client payload $Client_PAYLOAD"
+      
+      
+
