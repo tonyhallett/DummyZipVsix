@@ -12,6 +12,6 @@ jobs:
       env:
         GITHUB_REF: ${{ github.ref }}
         GITHUB_SHA: ${{ github.sha }}
-        GITHUB_MERGE_SHA: ${{github.pull_request.merge_commit_sha}}
+        GITHUB_MERGE_SHA: ${{github.event.pull_request.merge_commit_sha}}
 
       
