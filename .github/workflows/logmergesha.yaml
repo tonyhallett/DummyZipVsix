@@ -13,5 +13,14 @@ jobs:
         GITHUB_REF: ${{ github.ref }}
         GITHUB_SHA: ${{ github.sha }}
         GITHUB_MERGE_SHA: ${{github.event.pull_request.merge_commit_sha}}
+    - name: wait for mergeable
+      id: wait-for-mergeable
+      uses: tonyhallett/ReleaseManager/wait_for_mergeable@main
+      env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: echo
+      env:
+        WAITED_MERGE_SHA: ${{ steps.wait-for-mergeable.outputs.mergeCommitSha }}
+      run: echo "waited $WAITED_MERGE_SHA"
 
       
