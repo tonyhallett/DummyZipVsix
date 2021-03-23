@@ -1,4 +1,4 @@
-name: Add vsix link as comment to issues
+name: Build vsix and upload on pull request - success
 on:
   repository_dispatch:
     types: [Build vsix and upload on pull request - success]

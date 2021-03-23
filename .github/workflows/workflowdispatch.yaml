@@ -1,4 +1,4 @@
-name: Add vsix link as comment to issues
+name: Build vsix and upload on pull request repository dispatch
 on:
   workflow_run:
     workflows: [Build vsix and upload on pull request]
