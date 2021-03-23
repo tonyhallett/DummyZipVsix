@@ -12,7 +12,7 @@ jobs:
       - name: repo disptach
         uses: tonyhallett/ReleaseManager/workflow_run_conclusion_dispatch@main
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.PAT }}
       
       
 
