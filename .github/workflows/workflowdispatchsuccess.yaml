@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: log client payload
         env:
-            PAYLOAD: ${{ github.event }}
+            PAYLOAD: ${{ toJson(github.event) }}
         run:
             echo "Client payload $PAYLOAD"
       
