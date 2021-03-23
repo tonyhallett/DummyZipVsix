@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: log client payload
         env:
-            Client_PAYLOAD: ${{ github.event.repository_dispatch.client_payload.workflowRunPayload }}
+            Client_PAYLOAD: ${{ github.event.input.workflowRunPayload }}
         run:
             echo "Client payload $Client_PAYLOAD"
       
