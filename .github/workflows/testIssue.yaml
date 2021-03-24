@@ -7,15 +7,21 @@ jobs:
       name: log_head_sha
       runs-on: windows-2019
       steps:
-        - name: wait for mergeable
-          id: wait-for-mergeable
-          uses: tonyhallett/ReleaseManager/wait_for_mergeable@main
+        #- name: wait for mergeable
+        #  id: wait-for-mergeable
+        #  uses: tonyhallett/ReleaseManager/wait_for_mergeable@main
+        #  env:
+        #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #- name: Add vsix link as comment to issues
+        #  uses: tonyhallett/ReleaseManager/commit_merge_sha@main
+        #  env:
+        #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - name: log ref sha
           env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        - name: Add vsix link as comment to issues
-          uses: tonyhallett/ReleaseManager/commit_merge_sha@main
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            CHECK_REF: ${{github.ref}}
+            CHECK_SHA: ${{github.sha}}
+          run: echo "ref - $CHECK_REF, sha - $CHECK_SHA"
+            
       
       
 
