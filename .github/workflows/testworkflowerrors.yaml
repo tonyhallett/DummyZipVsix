@@ -17,13 +17,13 @@ name: test workflow errorson: [workflow_dispatch]jobs:  step-error-test:    
             time: 10s
       - name: log job context status 3
         if: ${{always()}}
-        run:             echo "job context ${{job.status}}"
+        run:             echo "job context ${{job.status}}" # bizarelly this is reported as success and not cancelled !
         # want step cancelled ?
   dependent-on-cancellation:
     runs-on: windows-2019
     needs: demo-cancellation
-    if: ${{cancelled()}}
+    #if: ${{cancelled()}}
     steps:
-      - name: needs result        run: echo "needs result ${{needs.demo-cancellation.result}}"
+      - name: needs result        run: echo "needs result ${{needs.demo-cancellation.result}}" # this too is success !
 
         
