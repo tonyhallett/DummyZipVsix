@@ -13,10 +13,10 @@ name: test workflow errorson: [workflow_dispatch]jobs:  demo-required:    ru
         uses: andymckay/cancel-action@0.2
       - name: log job context status 2
         run:             echo "job context ${{job.status}}"
-      - name: Sleep for 60s
+      - name: Sleep for 10s
         uses: juliangruber/sleep-action@v1
         with:
-            time: 60s
+            time: 10s
       - name: log job context status 3
         if: ${{always()}}
         run:             echo "job context ${{job.status}}" # bizarelly ? this is reported as success and not cancelled !
