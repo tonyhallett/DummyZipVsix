@@ -23,7 +23,7 @@ name: test workflow errorson: [workflow_dispatch]jobs:  demo-required:    ru
   dependent-on-cancellation:
     runs-on: windows-2019
     needs: demo-cancellation
-    if: ${{failure()}} # this is required
+    if: ${{cancelled()}} # this is required
     steps:
       - name: needs result        run: echo "needs result ${{needs.demo-cancellation.result}}" # this too is success !
 
