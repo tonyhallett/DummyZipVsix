@@ -1,3 +1,0 @@
-name: pull artifactson:  workflow_run:    workflows: [test pull request issues]    types: [completed]jobs:  test-artifacts:    runs-on: windows-2019    steps:      - name: print payload        env:             GITHUB_EVENT: ${{toJson(github.event)}}        run: |
-            echo "$GITHUB_EVENT"      - uses: tonyhallett/ReleaseManager/workflow_artifact_url_comments@main        env:            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        with:
-            prefix: Here is the pull request artifacts            suffix: You are welcome            format: name            
