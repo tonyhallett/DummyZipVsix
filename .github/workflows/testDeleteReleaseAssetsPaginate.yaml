@@ -1,5 +1,0 @@
-name: test delete assets paginateon: [workflow_dispatch]jobs:  test-release-assets:    runs-on: windows-2019    steps:     - id: fetch-latest-release
-       uses: thebritican/fetch-latest-release@main
-       with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}     - name: delete release assets paginate test       uses: tonyhallett/ReleaseManager/delete_release_assets@main         env:            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}       with:
-        release_id: ${{steps.fetch-latest-release.outputs.id}}      

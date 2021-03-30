@@ -1,2 +1,2 @@
 name: Add vsix link as comment to issueson:  workflow_run:    workflows: [Build vsix and upload on pull request]    types: [completed]jobs:  add-vsix-link-to-issues:    name: add vsix link as comment to issues    runs-on: windows-2019    steps:      - name: Add vsix link as comment to issues        uses: tonyhallett/ReleaseManager/workflow_artifacts_pull_request_comment@main        env:            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        with:
-            prefix: Please try             suffix: Does this resolve your issue ?            format: name            addTo: issues            
+            prefix: Please try             suffix: Does this resolve your issue ?            format: name            addTo: pullandissues            
