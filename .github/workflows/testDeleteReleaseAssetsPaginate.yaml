@@ -1,2 +1,5 @@
-name: test delete assets paginateon:  workflow_dispatch:  inputs:    releaseId:        description: release id to delete assets        required: truejobs:  test-release-assets:    runs-on: windows-2019    steps:     - name: delete release assets paginate test       uses: tonyhallett/ReleaseManager/delete_release_assets@main         with:
-        release_id: ${{github.event.inputs.releaseId}}      
+name: test delete assets paginateon: [workflow_dispatch]jobs:  test-release-assets:    runs-on: windows-2019    steps:      - id: fetch-latest-release
+        uses: thebritican/fetch-latest-release@v1
+        with:
+          github_token: ${{ github.token }}     - name: delete release assets paginate test       uses: tonyhallett/ReleaseManager/delete_release_assets@main         with:
+        release_id: ${{steps.fetch-latest-release.outputs.id}}      
