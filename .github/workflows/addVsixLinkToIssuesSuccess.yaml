@@ -4,11 +4,11 @@ on:
     types: [Build vsix and upload on pull request - success]
 
 jobs:
-  log-client-payload:
-    name: log client payload
+  vsix-comments:
+    name: comment on pull and issues with artifacts
     runs-on: windows-2019
     steps:
-      - name: Add vsix link as comment to issues
+      - name: Add vsix link comments
         uses: tonyhallett/artifacts-url-comments@v1.0.0
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
