@@ -21,7 +21,7 @@ jobs:
           msbuild DummyZipVsix.sln /p:Configuration=Release /p:DeployExtension=False /verbosity:minimal 
       - name: run vstest
         run: |
-            vstest.exe DummyZipVsix.sln
+            vstest.console.exe DummyZipVsix.sln
       - name: upload vsix
         uses: actions/upload-artifact@v2
         with:
