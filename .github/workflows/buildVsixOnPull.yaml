@@ -10,20 +10,22 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: set up msbuild
-        uses: microsoft/setup-msbuild@v1.0.2
-      - name: set up VSTest
-        uses: darenm/Setup-VSTest@v1
-      - name: nuget restore
-        run: nuget restore DummyZipVsix.sln
-      - name: build vsix
-        run: |
-          msbuild DummyZipVsix.sln /p:Configuration=Release /p:DeployExtension=False /verbosity:minimal 
-      - name: run vstest
-        run: |
-            vstest.console.exe DummyZipVsix.sln
-      - name: upload vsix
-        uses: actions/upload-artifact@v2
-        with:
-            name: DummyZip ( zipped vsix)
-            path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix
+      - name: vs test solution
+        uses: tonyhallett/ReleaseManager/vstest_solution@main
+      #- name: set up msbuild
+      #  uses: microsoft/setup-msbuild@v1.0.2
+      #- name: set up VSTest
+      #  uses: darenm/Setup-VSTest@v1
+      #- name: nuget restore
+      #  run: nuget restore DummyZipVsix.sln
+      #- name: build vsix
+      #  run: |
+      #    msbuild DummyZipVsix.sln /p:Configuration=Release /p:DeployExtension=False /verbosity:minimal 
+      #- name: run vstest
+      #  run: |
+      #      vstest.console.exe DummyZipVsix.sln
+      #- name: upload vsix
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #      name: DummyZip ( zipped vsix)
+      #      path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix
