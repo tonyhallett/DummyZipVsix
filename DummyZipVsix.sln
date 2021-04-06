@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.github\workflows\workflowdispatch.yaml = .github\workflows\workflowdispatch.yaml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{64E06F0A-3F20-4605-85A3-A520D173883D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{35400935-4502-460F-A210-DB79EC8D851E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35400935-4502-460F-A210-DB79EC8D851E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35400935-4502-460F-A210-DB79EC8D851E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64E06F0A-3F20-4605-85A3-A520D173883D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64E06F0A-3F20-4605-85A3-A520D173883D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64E06F0A-3F20-4605-85A3-A520D173883D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64E06F0A-3F20-4605-85A3-A520D173883D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
