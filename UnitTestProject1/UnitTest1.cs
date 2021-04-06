@@ -9,6 +9,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestMethod1()
         {
+            throw new Exception("Should stop further job and not conclusion success")
         }
     }
 }
