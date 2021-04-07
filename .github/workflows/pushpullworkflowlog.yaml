@@ -1,0 +1,16 @@
+name: Log push pull workflow run
+on:
+  workflow_run:
+    workflows: [Push pull]
+    types: [completed]
+
+jobs:
+  workflow-dispatch:
+    name: repo dispatch new event 
+    runs-on: windows-2019
+    steps:
+      - name: echo payload
+        run: echo ${{github.event}}
+      
+      
+
