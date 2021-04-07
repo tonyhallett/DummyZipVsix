@@ -7,16 +7,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DummyZipVsix", "DummyZipVsi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8418F5E8-F844-46F0-81E0-944E7DFAFEE0}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\addPushArtifactComment.yaml = .github\workflows\addPushArtifactComment.yaml
 		.github\workflows\addVsixLinkToIssues.yaml = .github\workflows\addVsixLinkToIssues.yaml
 		.github\workflows\addVsixLinkToIssuesSuccess.yaml = .github\workflows\addVsixLinkToIssuesSuccess.yaml
 		.github\workflows\buildVsixOnPull.yaml = .github\workflows\buildVsixOnPull.yaml
 		.github\workflows\manual_version_action.yaml = .github\workflows\manual_version_action.yaml
-		.github\workflows\pushArtifact.yaml = .github\workflows\pushArtifact.yaml
 		.github\workflows\testworkflowerrors2.yaml = .github\workflows\testworkflowerrors2.yaml
 		.github\workflows\testyaml.yaml = .github\workflows\testyaml.yaml
 		.github\workflows\workflowdispatch.yaml = .github\workflows\workflowdispatch.yaml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{F9056071-64C8-450F-9D72-83CBE618798E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +28,10 @@ Global
 		{35400935-4502-460F-A210-DB79EC8D851E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35400935-4502-460F-A210-DB79EC8D851E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35400935-4502-460F-A210-DB79EC8D851E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9056071-64C8-450F-9D72-83CBE618798E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9056071-64C8-450F-9D72-83CBE618798E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9056071-64C8-450F-9D72-83CBE618798E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9056071-64C8-450F-9D72-83CBE618798E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
