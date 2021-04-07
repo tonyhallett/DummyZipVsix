@@ -10,7 +10,9 @@ jobs:
     runs-on: windows-2019
     steps:
       - name: echo payload
-        run: echo ${{github.event}}
+        env: 
+            EVENT: ${{ toJSON(github.event) }}
+        run: echo "$EVENT"
       
       
 
