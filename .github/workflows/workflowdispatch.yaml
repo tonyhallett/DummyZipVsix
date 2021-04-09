@@ -9,7 +9,7 @@ jobs:
     name: repo dispatch new event 
     runs-on: windows-2019
     steps:
-      - name: repo disptach
+      - name: repo dispatch
         uses: tonyhallett/workflow-run-conclusion-dispatch-action@main
         with:
             GITHUB_PAT: ${{ secrets.PAT }}
