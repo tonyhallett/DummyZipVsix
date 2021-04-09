@@ -8,9 +8,8 @@ jobs:
     name: comment on pull and issues with artifacts
     runs-on: windows-2019
     steps:
-      - name: temp log workflow event
-        run: echo ${{github.event.client_payload.workflow_run.event}}
       - name: Add vsix link comments
+        if: ${{github.event.client_payload.workflow_run.event == pull_request}} # not necessary now but will be
         uses: tonyhallett/artifacts-url-comments@v1.1.0
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
