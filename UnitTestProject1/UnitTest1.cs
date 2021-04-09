@@ -9,7 +9,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestMethod1()
         {
-            throw new Exception("puposeful exception")
+            throw new Exception("puposeful exception");
         }
     }
 }
