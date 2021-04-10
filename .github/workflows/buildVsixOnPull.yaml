@@ -2,7 +2,7 @@ name: Build vsix and upload on pull request
 on: 
     pull_request:
         types: [opened, synchronize, edited]
-    push
+    push:
 jobs:
   build-vsix-and-upload:
     name: build vsix and upload
