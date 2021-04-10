@@ -2,10 +2,10 @@ name: Build vsix and upload on pull request
 on: 
     pull_request:
         types: [opened, synchronize, edited]
+    push
 jobs:
   build-vsix-and-upload:
     name: build vsix and upload
-    if: ${{ !github.event.pull_request.draft }}
     runs-on: windows-2019
     steps:
       - name: checkout
@@ -13,17 +13,71 @@ jobs:
       
       - name: set up msbuild
         uses: microsoft/setup-msbuild@v1.0.2
+
       - name: set up VSTest
         uses: darenm/Setup-VSTest@v1
+
       - name: nuget restore
         run: nuget restore DummyZipVsix.sln
+
       - name: build vsix
         run: |
           msbuild DummyZipVsix.sln /p:Configuration=Release /p:DeployExtension=False /verbosity:minimal 
+
       - name: vs test solution
         uses: tonyhallett/vstest-solution-action@v1.0.0
+
+        # common - version to do 
+
+        # above are common steps for push and pull
+
+        # pull only
       - name: upload vsix
+        if: ${{github.event_name}} == pull_request && ${{ !github.event.pull_request.draft }}
         uses: actions/upload-artifact@v2
         with:
             name: DummyZip ( zipped vsix)
             path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix
+
+        # push only
+      - name: Get current date time # this to go when auto determine version
+        if: ${{github.event_name}} == push
+        id: date-time
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d-%h-%m-%s')"
+      - name: create release
+        if: ${{github.event_name}} == push
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            tag_name: ${{steps.date-time.outputs.date}} # 
+            release_name:  ${{github.ref }} # will change this to have the name and vsix
+            draft: false
+            prerelease: false
+      - name: Update release asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            upload_url: ${{steps.create_release.outputs.upload_url}}
+            asset_path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix # todo create var
+            asset_name: Test.vsix # tbd
+            asset_content_type: application/zip
+      - name: add to marketplace
+        if: event.name == push
+        uses: mrluje/vs-marketplace-publisher@v2
+        with:
+          pat: ${{ secrets.VSIX_PUBLISHER }} 
+          manifestPath: ${{github.workspace}}\DummyZipVsix\publishManifest.json # will be made relative if does not exist
+          vsixPath: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix   #  will be creating a var
+            
+      - name: comment - released and added to marketplace
+        if: event.name == push
+        uses: tonyhallett/addCommentToPullAndIssuesFromPushAction@main
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            comment: released and available on marketplace
+            addTo: pullandissues
