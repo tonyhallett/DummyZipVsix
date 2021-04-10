@@ -34,7 +34,7 @@ jobs:
 
         # pull only
       - name: upload vsix
-        if: ${{github.event_name}} == pull_request && ${{ !github.event.pull_request.draft }}
+        if: github.event_name == 'pull_request' && !github.event.pull_request.draft
         uses: actions/upload-artifact@v2
         with:
             name: DummyZip ( zipped vsix)
@@ -42,11 +42,11 @@ jobs:
 
         # push only
       - name: Get current date time # this to go when auto determine version
-        if: ${{github.event_name}} == push
+        if: ${{github.event_name}} == 'push'
         id: date-time
         run: echo "::set-output name=date::$(date +'%Y-%m-%d-%h-%m-%s')"
       - name: create release
-        if: ${{github.event_name}} == push
+        if: github.event_name == 'push''
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -57,7 +57,7 @@ jobs:
             draft: false
             prerelease: false
       - name: Update release asset
-        if: ${{github.event_name}} == push
+        if: github.event_name == 'push'
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
@@ -68,7 +68,7 @@ jobs:
             asset_name: Test.vsix # tbd
             asset_content_type: application/zip
       - name: add to marketplace
-        if: ${{github.event_name}} == push
+        if: github.event_name == 'push'
         uses: mrluje/vs-marketplace-publisher@v2
         with:
           pat: ${{ secrets.VSIX_PUBLISHER }} 
@@ -76,7 +76,7 @@ jobs:
           vsixPath: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix   #  will be creating a var
             
       - name: comment - released and added to marketplace
-        if: ${{github.event_name}} == push
+        if: github.event_name == 'push'
         uses: tonyhallett/addCommentToPullAndIssuesFromPushAction@main
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
