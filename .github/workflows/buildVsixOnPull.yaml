@@ -46,7 +46,7 @@ jobs:
         id: date-time
         run: echo "::set-output name=date::$(date +'%Y-%m-%d-%h-%m-%s')"
       - name: create release
-        if: github.event_name == 'push''
+        if: github.event_name == 'push'
         id: create_release
         uses: actions/create-release@v1
         env:
