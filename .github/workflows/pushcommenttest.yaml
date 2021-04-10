@@ -1,0 +1,19 @@
+name: comment issues available on marketplace
+on:
+  push
+
+jobs:
+  add-comment-on-push:
+    name: add comment to pull and issues
+    runs-on: windows-2019
+    steps:
+      - name: add comment to issues
+        uses: tonyhallett/addCommentToPullAndIssuesFromPushAction@main
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            comment: available on marketplace
+            addTo: pullandissues
+      
+      
+
