@@ -77,7 +77,7 @@ jobs:
             
       - name: comment - released and added to marketplace
         if: github.event_name == 'push'
-        uses: tonyhallett/addCommentToPullAndIssuesFromPushAction@main
+        uses: tonyhallett/addCommentToPullAndIssuesFromPushAction@v1.0.0
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
