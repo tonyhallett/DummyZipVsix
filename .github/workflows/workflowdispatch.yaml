@@ -1,18 +1,19 @@
-name: Build vsix and upload on pull request repository dispatch
+name: Workflow dispatch
 on:
   workflow_run:
-    workflows: [Build vsix and upload on pull request]
+    workflows: [Push vsix artifact pull release and comment]
     types: [completed]
 
 jobs:
   workflow-dispatch:
-    name: repo dispatch new event 
+    name: repo dispatch with event and conclusion
     runs-on: windows-2019
     steps:
       - name: repo dispatch
-        uses: tonyhallett/workflow-run-conclusion-dispatch-action@main
+        uses: tonyhallett/workflow-run-conclusion-dispatch-action@v1.1.0
         with:
             GITHUB_PAT: ${{ secrets.PAT }}
+            eventNameInEventType: 'true'
       
       
 

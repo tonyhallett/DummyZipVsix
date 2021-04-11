@@ -1,15 +1,14 @@
-name: Add vsix link as comment to issues - success
+name: Add vsix link comment to issues
 on:
   repository_dispatch:
-    types: [Build vsix and upload on pull request - success]
+    types: [Push vsix artifact pull release and comment - push - success]
 
 jobs:
   vsix-comments:
-    name: comment on pull and issues with artifacts
+    name: Add vsix link comment to issues
     runs-on: windows-2019
     steps:
-      - name: Add vsix link comments
-        if: ${{github.event.client_payload.workflow_run.event}} == pull_request
+      - name: Add vsix link comment to issues
         uses: tonyhallett/artifacts-url-comments@v1.1.0
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

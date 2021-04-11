@@ -1,4 +1,4 @@
-name: Build vsix and upload on pull request
+name: Push vsix artifact pull release and comment
 on: 
     push:
     pull_request:
