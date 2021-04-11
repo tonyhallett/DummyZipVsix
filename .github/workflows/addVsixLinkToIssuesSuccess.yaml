@@ -1,7 +1,7 @@
 name: Add vsix link comment to issues
 on:
   repository_dispatch:
-    types: [Push vsix artifact pull release and comment - push - success]
+    types: [Push vsix artifact pull release and comment - pull_request - success]
 
 jobs:
   vsix-comments:
