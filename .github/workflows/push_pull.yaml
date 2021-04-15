@@ -11,9 +11,13 @@ jobs:
     env:
         CONFIGURATION: Release
         VSIX_PROJECT: DummyZipVsix
-        SOLN: ${{env.VSIX_PROJECT}}.sln
-        VSIX: ${{env.VSIX_PROJECT}}\bin\${{env.CONFIGURATION}}\${{env.VSIX_PROJECT}}.vsix
+        #SOLN: ${{env.VSIX_PROJECT}}.sln
+        #VSIX: ${{env.VSIX_PROJECT}}\bin\${{env.CONFIGURATION}}\${{env.VSIX_PROJECT}}.vsix
     steps:
+      - name: environment variables 1
+        run: echo "SOLN=$VSIX_PROJECT.sln" >> $GITHUB_ENV
+      - name: environment variables 2
+        run: echo "VSIX=$VSIX_PROJECT\bin\$CONFIGURATION\$VSIX_PROJECT.vsix" >> $GITHUB_ENV
       - name: checkout
         uses: actions/checkout@v2
         with:
