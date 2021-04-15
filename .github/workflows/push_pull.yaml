@@ -13,6 +13,12 @@ jobs:
         uses: actions/checkout@v2
         with:
             fetch-depth: 0
+      - name: Determine version 
+        id: determine-version
+        uses: paulhatch/semantic-version@v4.0.1
+        with:
+            short_tags: false
+            branch: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || 'HEAD' }}
       
       - name: set up msbuild
         uses: microsoft/setup-msbuild@v1.0.2
@@ -29,8 +35,6 @@ jobs:
 
       - name: vs test solution
         uses: tonyhallett/vstest-solution-action@v1.0.0
-
-        # common - version to do 
 
         # above are common steps for push and pull
 
@@ -57,7 +61,7 @@ jobs:
             tag_name: ${{steps.date-time.outputs.date}} # 
             release_name:  ${{github.ref }} # will change this to have the name and vsix
             draft: false
-            prerelease: false
+            prerelease: falses
       - name: Update release asset
         if: github.event_name == 'push'
         id: upload-release-asset
