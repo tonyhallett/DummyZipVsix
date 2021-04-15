@@ -21,7 +21,7 @@ jobs:
       - name: vsix variable
         id: vsix-var
         #run: echo "VSIX=$VSIX_PROJECT\bin\$CONFIGURATION\$VSIX_PROJECT.vsix" >> $GITHUB_ENV
-        run: echo "::set-output name=var::${{env.VSIX_PROJECT}}\bin\${{env.CONFIGURATION}}\${{env.VSIX_PROJECT}}.vsix"
+        run: echo "::set-output name=var::${{github.workspace}}\${{env.VSIX_PROJECT}}\bin\${{env.CONFIGURATION}}\${{env.VSIX_PROJECT}}.vsix"
       - name: checkout
         uses: actions/checkout@v2
         with:
