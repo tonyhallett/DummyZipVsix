@@ -5,12 +5,18 @@ on:
         types: [opened, synchronize, edited]
     
 jobs:
-  build-vsix-and-upload:
-    name: build vsix and upload
+  push-vsix-artifact-pull-release-and-comment:
+    name: Push vsix artifact pull release and comment
     runs-on: windows-2019
     steps:
       - name: checkout
         uses: actions/checkout@v2
+
+      - name: Test version action 
+        id: test-version-action
+        uses: paulhatch/semantic-version@v4.0.1
+        with:
+            short_tags: false
       
       - name: set up msbuild
         uses: microsoft/setup-msbuild@v1.0.2
@@ -65,7 +71,7 @@ jobs:
         with:
             upload_url: ${{steps.create_release.outputs.upload_url}}
             asset_path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix # todo create var
-            asset_name: Test.vsix # tbd
+            asset_name: DummyZipVsix.vsix # will use a var
             asset_content_type: application/zip
       - name: add to marketplace
         if: github.event_name == 'push'
