@@ -89,7 +89,7 @@ jobs:
         with:
             upload_url: ${{steps.create_release.outputs.upload_url}}
             #asset_path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix
-            asset_path: ${{${{steps.vsix-var.outputs.var}}}}
+            asset_path: ${{steps.vsix-var.outputs.var}}
             #asset_name: DummyZipVsix.vsix # will use a var
             asset_name: ${{env.VSIX_PROJECT}}.vsix
             asset_content_type: application/zip
@@ -101,7 +101,7 @@ jobs:
           #manifestPath: ${{github.workspace}}\DummyZipVsix\publishManifest.json # will be made relative if does not exist
           manifestPath: ${{env.VSIX_PROJECT}}\publishManifest.json
           #vsixPath: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix   #  will be creating a var
-          vsixPath: ${{${{steps.vsix-var.outputs.var}}}}
+          vsixPath: ${{steps.vsix-var.outputs.var}}
             
       - name: comment - released and added to marketplace
         if: github.event_name == 'push'
