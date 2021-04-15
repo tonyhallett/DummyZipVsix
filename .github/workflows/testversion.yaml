@@ -1,0 +1,22 @@
+name: Test version
+on: 
+    push:
+    pull_request:
+        types: [opened, synchronize, edited]
+    
+jobs:
+  push-vsix-artifact-pull-release-and-comment:
+    name: Push vsix artifact pull release and comment
+    runs-on: windows-2019
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+            fetch-depth: 0
+
+      - name: Test version action 
+        id: test-version-action
+        uses: paulhatch/semantic-version@v4.0.1
+        with:
+            short_tags: false
+            branch: ${{ github.event.pull_request.head.sha }}

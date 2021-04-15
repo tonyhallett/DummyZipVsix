@@ -13,12 +13,6 @@ jobs:
         uses: actions/checkout@v2
         with:
             fetch-depth: 0
-
-      - name: Test version action 
-        id: test-version-action
-        uses: paulhatch/semantic-version@v4.0.1
-        with:
-            short_tags: false
       
       - name: set up msbuild
         uses: microsoft/setup-msbuild@v1.0.2
