@@ -17,11 +17,11 @@ jobs:
       - name: soln variable
         id: soln-var
         #run: echo "SOLN=$VSIX_PROJECT.sln" >> $GITHUB_ENV
-        run: echo "::set-output name=var::$VSIX_PROJECT.sln"
+        run: echo "::set-output name=var::${{env.VSIX_PROJECT}}.sln"
       - name: vsix variable
         id: vsix-var
         #run: echo "VSIX=$VSIX_PROJECT\bin\$CONFIGURATION\$VSIX_PROJECT.vsix" >> $GITHUB_ENV
-        run: echo "::set-output name=var::$VSIX_PROJECT\bin\$CONFIGURATION\$VSIX_PROJECT.vsix"
+        run: echo "::set-output name=var::${{env.VSIX_PROJECT}}\bin\${{env.CONFIGURATION}}\${{env.VSIX_PROJECT}}.vsix"
       - name: checkout
         uses: actions/checkout@v2
         with:
