@@ -8,6 +8,11 @@ jobs:
   push-vsix-artifact-pull-release-and-comment:
     name: Push vsix artifact pull release and comment
     runs-on: windows-2019
+    env:
+        CONFIGURATION: Release
+        VSIX_PROJECT: DummyZipVsix
+        SOLN: ${{env.VSIX_PROJECT}}.sln
+        VSIX: ${{env.VSIX_PROJECT}}\bin\${{env.CONFIGURATION}}\${{env.VSIX_PROJECT}}.vsix
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -27,17 +32,19 @@ jobs:
         uses: darenm/Setup-VSTest@v1
 
       - name: nuget restore
-        run: nuget restore DummyZipVsix.sln
+        #run: nuget restore DummyZipVsix.sln
+        run: nuget restore ${{SOLN}}
 
       - name: Set version for Visual Studio Extension
         uses: cezarypiatek/VsixVersionAction@1.0
         with:
             version: ${{steps.next-version.outputs.major}}.${{steps.next-version.outputs.minor}}.${{github.run_number}}.${{steps.next-version.outputs.patch}}  
-            vsix-manifest-file: ${{github.workspace}}\DummyZipVsix\source.extension.vsixmanifest
-
-      - name: build vsix
+            #vsix-manifest-file: ${{github.workspace}}\DummyZipVsix\source.extension.vsixmanifest
+            vsix-manifest-file: ${{env.VSIX_PROJECT}}\source.extension.vsixmanifest
+            
+      - name: build vsix #msbuild DummyZipVsix.sln /p:Configuration=Release /p:DeployExtension=False /verbosity:minimal
         run: |
-          msbuild DummyZipVsix.sln /p:Configuration=Release /p:DeployExtension=False /verbosity:minimal 
+           msbuild ${{env.SOLN}} /p:Configuration=${{env.CONFIGURATION}} /p:DeployExtension=False /verbosity:minimal
 
       - name: vs test solution
         uses: tonyhallett/vstest-solution-action@v1.0.0
@@ -50,7 +57,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
             name: DummyZip ( zipped vsix)
-            path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix
+            #path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix
+            path: ${{env.VSIX}}
 
         # push only
       - name: create release
@@ -72,16 +80,20 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
             upload_url: ${{steps.create_release.outputs.upload_url}}
-            asset_path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix # todo create var
-            asset_name: DummyZipVsix.vsix # will use a var
+            #asset_path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix
+            asset_path: ${{env.VSIX}}
+            #asset_name: DummyZipVsix.vsix # will use a var
+            asset_name: ${{env.VSIX_PROJECT}}.vsix
             asset_content_type: application/zip
       - name: add to marketplace
         if: github.event_name == 'push'
         uses: mrluje/vs-marketplace-publisher@v2
         with:
           pat: ${{ secrets.VSIX_PUBLISHER }} 
-          manifestPath: ${{github.workspace}}\DummyZipVsix\publishManifest.json # will be made relative if does not exist
-          vsixPath: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix   #  will be creating a var
+          #manifestPath: ${{github.workspace}}\DummyZipVsix\publishManifest.json # will be made relative if does not exist
+          manifestPath: ${{env.VSIX_PROJECT}}\publishManifest.json
+          #vsixPath: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix   #  will be creating a var
+          vsixPath: ${{env.VSIX}}
             
       - name: comment - released and added to marketplace
         if: github.event_name == 'push'
