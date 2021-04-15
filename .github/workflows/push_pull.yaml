@@ -10,14 +10,18 @@ jobs:
   push-vsix-artifact-pull-release-and-comment:
     name: Push vsix artifact pull release and comment
     runs-on: windows-2019
-    env:
-        SOLN: ${{env.VSIX_PROJECT}}.sln
-        VSIX: ${{env.VSIX_PROJECT}}\bin\${{env.CONFIGURATION}}\${{env.VSIX_PROJECT}}.vsix
+    #env:
+    #   SOLN: ${{env.VSIX_PROJECT}}.sln
+    #  VSIX: ${{env.VSIX_PROJECT}}\bin\${{env.CONFIGURATION}}\${{env.VSIX_PROJECT}}.vsix
     steps:
-      #- name: environment variables 1
-      #  run: echo "SOLN=$VSIX_PROJECT.sln" >> $GITHUB_ENV
-      #- name: environment variables 2
-      #  run: echo "VSIX=$VSIX_PROJECT\bin\$CONFIGURATION\$VSIX_PROJECT.vsix" >> $GITHUB_ENV
+      - name: soln variable
+        id: soln-var
+        #run: echo "SOLN=$VSIX_PROJECT.sln" >> $GITHUB_ENV
+        run: echo "::set-output name=var::$VSIX_PROJECT.sln"
+      - name: vsix variable
+        id: vsix-var
+        #run: echo "VSIX=$VSIX_PROJECT\bin\$CONFIGURATION\$VSIX_PROJECT.vsix" >> $GITHUB_ENV
+        run: echo "::set-output name=var::$VSIX_PROJECT\bin\$CONFIGURATION\$VSIX_PROJECT.vsix"
       - name: checkout
         uses: actions/checkout@v2
         with:
@@ -37,7 +41,7 @@ jobs:
 
       - name: nuget restore
         #run: nuget restore DummyZipVsix.sln
-        run: nuget restore ${{env.SOLN}}
+        run: nuget restore ${{steps.soln-var.outputs.var}}
 
       - name: Set version for Visual Studio Extension
         uses: cezarypiatek/VsixVersionAction@1.0
@@ -48,7 +52,7 @@ jobs:
             
       - name: build vsix #msbuild DummyZipVsix.sln /p:Configuration=Release /p:DeployExtension=False /verbosity:minimal
         run: |
-           msbuild ${{env.SOLN}} /p:Configuration=${{env.CONFIGURATION}} /p:DeployExtension=False /verbosity:minimal
+           msbuild ${{steps.soln-var.outputs.var}} /p:Configuration=${{env.CONFIGURATION}} /p:DeployExtension=False /verbosity:minimal
 
       - name: vs test solution
         uses: tonyhallett/vstest-solution-action@v1.0.0
@@ -62,7 +66,7 @@ jobs:
         with:
             name: DummyZip ( zipped vsix)
             #path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix
-            path: ${{env.VSIX}}
+            path: ${{steps.vsix-var.outputs.var}}
 
         # push only
       - name: create release
@@ -85,7 +89,7 @@ jobs:
         with:
             upload_url: ${{steps.create_release.outputs.upload_url}}
             #asset_path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix
-            asset_path: ${{env.VSIX}}
+            asset_path: ${{${{steps.vsix-var.outputs.var}}}}
             #asset_name: DummyZipVsix.vsix # will use a var
             asset_name: ${{env.VSIX_PROJECT}}.vsix
             asset_content_type: application/zip
@@ -97,7 +101,7 @@ jobs:
           #manifestPath: ${{github.workspace}}\DummyZipVsix\publishManifest.json # will be made relative if does not exist
           manifestPath: ${{env.VSIX_PROJECT}}\publishManifest.json
           #vsixPath: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix   #  will be creating a var
-          vsixPath: ${{env.VSIX}}
+          vsixPath: ${{${{steps.vsix-var.outputs.var}}}}
             
       - name: comment - released and added to marketplace
         if: github.event_name == 'push'
