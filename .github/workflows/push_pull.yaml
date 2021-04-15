@@ -37,7 +37,7 @@ jobs:
 
       - name: nuget restore
         #run: nuget restore DummyZipVsix.sln
-        run: nuget restore ${{SOLN}}
+        run: nuget restore ${{env.SOLN}}
 
       - name: Set version for Visual Studio Extension
         uses: cezarypiatek/VsixVersionAction@1.0
