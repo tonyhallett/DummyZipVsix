@@ -1,7 +1,11 @@
 name: Push vsix artifact pull release and comment
 on: 
     push:
+        branches:
+          - main
     pull_request:
+        branches:
+          - main
         types: [opened, synchronize, edited]
 env:
   CONFIGURATION: Release
@@ -30,17 +34,15 @@ jobs:
         uses: darenm/Setup-VSTest@v1
 
       - name: nuget restore
-        #run: nuget restore DummyZipVsix.sln
         run: nuget restore ${{env.SOLN}}
 
       - name: Set version for Visual Studio Extension
         uses: cezarypiatek/VsixVersionAction@1.0
         with:
             version: ${{steps.next-version.outputs.major}}.${{steps.next-version.outputs.minor}}.${{github.run_number}}.${{steps.next-version.outputs.patch}}  
-            #vsix-manifest-file: ${{github.workspace}}\DummyZipVsix\source.extension.vsixmanifest
             vsix-manifest-file: ${{env.VSIX_PROJECT}}\source.extension.vsixmanifest
             
-      - name: build vsix #msbuild DummyZipVsix.sln /p:Configuration=Release /p:DeployExtension=False /verbosity:minimal
+      - name: build vsix
         run: |
            msbuild ${{env.SOLN}} /p:Configuration=${{env.CONFIGURATION}} /p:DeployExtension=False /verbosity:minimal
 
@@ -55,7 +57,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
             name: DummyZip ( zipped vsix)
-            #path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix
             path: ${{env.VSIX}}
 
         # push only
@@ -78,9 +79,7 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
             upload_url: ${{steps.create_release.outputs.upload_url}}
-            #asset_path: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix
             asset_path: ${{env.VSIX}}
-            #asset_name: DummyZipVsix.vsix # will use a var
             asset_name: ${{env.VSIX_PROJECT}}.vsix
             asset_content_type: application/zip
       - name: add to marketplace
@@ -88,9 +87,7 @@ jobs:
         uses: mrluje/vs-marketplace-publisher@v2
         with:
           pat: ${{ secrets.VSIX_PUBLISHER }} 
-          #manifestPath: ${{github.workspace}}\DummyZipVsix\publishManifest.json # will be made relative if does not exist
           manifestPath: ${{env.VSIX_PROJECT}}\publishManifest.json
-          #vsixPath: ${{github.workspace}}\DummyZipVsix\bin\Release\DummyZipVsix.vsix   #  will be creating a var
           vsixPath: ${{env.VSIX}}
       - name: comment - released and added to marketplace
         if: github.event_name == 'push'
