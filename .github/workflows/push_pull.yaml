@@ -2,10 +2,10 @@ name: Push vsix artifact pull release and comment
 on: 
     push:
         branches:
-          - main
+          - master
     pull_request:
         branches:
-          - main
+          - master
         types: [opened, synchronize, edited]
 env:
   CONFIGURATION: Release
