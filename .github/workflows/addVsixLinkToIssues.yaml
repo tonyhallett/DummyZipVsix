@@ -7,7 +7,7 @@ on:
 
 jobs:
   vsix-comments:
-    if: github.event.workflow_run.conclusion=='success'
+    if: github.event.workflow_run.conclusion=='success' && github.event.workflow_run.event=='pull_request'
     name: Add vsix link comment to issues
     runs-on: windows-2019
     steps:
